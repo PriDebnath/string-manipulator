@@ -1,672 +1,126 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>String Manipulator</title>
-
-  <!-- link to fav icon -->
-  <link rel="icon" type="image/png" href="./images/fav-icon.ico" sizes="16x16" />
-  <meta name="Author" content="https://www.linkedin.com/in/pritam-debnath-762019239">
-
-
-  <!-- font Nunito starts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital@1&display=swap" rel="stylesheet">
-
-  <!-- font Nunito ends -->
-
-  <style>
-    * {
-      box-sizing: border-box;
-      transition: 0.2s;
-      color: deepskyblue;
-      font-family: 'Nunito', sans-serif;
-    }
-    
-    
-    
-
-    main {
-      border: 1px solid deepskyblue;
-      border-radius: 0.4rem;
-      overflow: hidden;
-      background: rgb(0, 191, 255, 0.05);
-      max-width: 600px;
-      margin: auto;
-      margin-top:2rem; 
-    }
-
-
-
-    .div_textarea {
-      margin: 0;
-      padding: 0;
-      border: 1px solid deepskyblue;
-      border-bottom: none;
-    }
-
-    .action-btn-container {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .action-btn-container>button {
-      font-family: sans-serif;
-    }
-
-    /* text area starts */
-    .textarea-container {}
-
-
-    #text-area {
-      width: 100%;
-      min-height: 25vh;
-      margin: 0;
-      padding: 1rem;
-      border: none;
-      border-bottom: 1px solid deepskyblue;
-      font-size: 1.1rem;
-
-    }
-
-    #text-area:focus {
-      outline: none;
-      box-shadow: inset 0 0 0.2rem deepskyblue;
-
-    }
-
-    #text-area::placeholder {
-      color: deepskyblue;
-    }
-
-    #text-area::-ms-input-placeholder {
-      color: deepskyblue;
-    }
-
-    /* text area ends */
-
-
-    .counter {
-      display: flex;
-      border-bottom: 1px solid deepskyblue;
-      align-items: center;
-    }
-
-    .counter_p {
-      padding: 0.4rem;
-      padding-top: 0.2rem;
-      margin: 0;
-    }
-
-    #copy-btn {}
-
-    button {
-      font-size: 1rem;
-      font-weight: 700;
-      padding: 0.3rem 0.6rem;
-      background: inherit;
-      border: 1px solid deepskyblue;
-      outline: none;
-
-    }
-
-
-
-    button:active {
-      outline: none;
-      animation: wave-right 0.5s ease;
-    }
-
-    button:hover {
-      outline: none;
-      animation: wave-right 0.5s ease;
-    }
-
-    .case-btn-container {
-      display: flex;
-      flex-wrap: wrap;
-      padding: 1rem 0.8rem;
-
-    }
-
-    .case-btn-container>button {
-      margin: 0.2rem;
-      /*
-           border radius should be minus outer padding or margin 
-           */
-      border-radius: 0.2rem;
-    }
-
-
-    /* animation starts */
-
-    @keyframes wave-right {
-      10% {
-        background: linear-gradient(to right, deepskyblue, transparent, transparent, transparent, transparent);
-        color: white;
-      }
-
-      20% {
-        background: linear-gradient(to right, deepskyblue, transparent, transparent, transparent);
-        color: white;
-
-      }
-
-      30% {
-        background: linear-gradient(to right, deepskyblue, transparent, transparent);
-        color: white;
-
-      }
-
-      50% {
-        background: linear-gradient(to right, deepskyblue, transparent);
-        color: white;
-
-      }
-
-      100% {
-        background: linear-gradient(to right, deepskyblue, deepskyblue) color: white;
-
-      }
-    }
-
-    /* animation ends */
-
-
-
-
-
-
-
-    /* utility classes starts */
-
-    .border-y-none {
-      border-top: none;
-      border-bottom: none;
-    }
-
-    .border-right-none {
-      border-right: none;
-    }
-
-
-    .display-none {
-      display: none;
-    }
-
-    .display-inline {
-      display: inline;
-    }
-
-    .border-x-none {
-      border-right: none;
-      border-left: none;
-    }
-
-    .font-weight-8 {
-      font-weight: 800;
-    }
-
-    /* utility classes ends */
-    
-    
-    
-    
-   .say-hello {
-      position: absolute;
-      display: block;
-      font-size: 1.5rem;
-      font-weight: 600;
-      text-decoration: none;
-      color: skyblue;
-      box-shadow: 0.1rem 0.1rem 0.4rem skyblue;
-      border-radius: 0.5rem;
-      padding: 0.5rem 1rem;
-      top: 100%;  
-      left: 50%; 
-      transform: translate(-50%, -120%); 
-    }
-
-    .say-hello:hover {
-      box-shadow: 0.1rem 0.1rem 0.2rem skyblue;
-    }
-    
-    
-    
-    
-  </style>
-</head>
-
-<body>
-  <main>
-
-    <div class="textarea-container">
-
-      <div class="action-btn-container">
-
-
-        <button id="undo-btn" onclick="undoTextarea()" class="border-y-none border-right-none">
-          Undo
-        </button>
-
-        <button id="redo-btn" onclick="redoTextarea()" class="border-y-none 
-        border-right-none">
-          Redo
-        </button>
-
-        <button id="copy-btn" onclick="handleCopy('text-area')" class="border-y-none border-right-none">
-          Copy
-        </button>
-      </div>
-      <div class="div_textarea border-x-none">
-        <textarea name="" id="text-area" class="font-weight-8" placeholder="Type something . . ."></textarea>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>String Manipulator</title>
+
+    <!-- link to fav icon -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="./images/fav-icon.ico"
+      sizes="16x16"
+    />
+    <meta
+      name="Author"
+      content="https://www.linkedin.com/in/pritam-debnath-762019239"
+    />
+
+    <!-- font Nunito starts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital@1&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- font Nunito ends -->
+
+      <!-- link to fav icon -->
+      <link rel="icon" type="image/png"  href="assets/images/fav-icon.ico" sizes="16x16"/>
+
+
+    <!-- styling  starts-->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <!-- styling ends-->
+  </head>
+
+  <body>
+    <main>
+      <div class="textarea-container">
+        <div class="action-btn-container">
+          <button
+            id="undo-btn"
+            onclick="undoTextarea()"
+            class="border-y-none border-right-none"
+          >
+            Undo
+          </button>
+
+          <button
+            id="redo-btn"
+            onclick="redoTextarea()"
+            class="border-y-none border-right-none"
+          >
+            Redo
+          </button>
+
+          <button
+            id="copy-btn"
+            onclick="handleCopy('text-area')"
+            class="border-y-none border-right-none"
+          >
+            Copy
+          </button>
+        </div>
+        <div class="div_textarea border-x-none">
+          <textarea
+            name=""
+            id="text-area"
+            class="font-weight-8"
+            placeholder="Type something . . ."
+          ></textarea>
+        </div>
       </div>
 
-
-    </div>
-
-    <div class="counter">
-      <p class="counter_p">Letter Count :
-        <span id="letter-counter" class="font-weight-8">0</span>
-      </p>
-      <p class="counter_p">Word Count :
-        <span id="word-counter" class="font-weight-8">0</span>
-      </p>
-
-    </div>
-
-    <div class="case-btn-container">
-
-
-
-
-
-      <button id="toLowerCase" onclick="handleToLowerCase()">
-        lower case</button>
-      <button onclick="handleToUpperCase()">
-        UPPERCASE</button>
-
-      <button onclick="handleToTitleCase()">
-        Title Case</button>
-
-
-      <button onclick="handleToPascalCase()">
-        PascalCase</button>
-
-      <button onclick="handleToCamelCase()">
-        CamelCase</button>
-      <button onclick="handleToKebabCase()">
-        kebab-case</button>
-
-      <button onclick="handleToSnakeCase()">
-        snake_case</button>
-
-      <button onclick="handleToScreamingSnakeCase()">
-        SCREAMING_SNAKE_CASE</button>
-
-
-
-
-      <button onclick="handleToStudlyCaps()">
-        StUdLyCaPs</button>
-
-
-      <button onclick="handleToDotCase()">
-        Dot.case</button>
-
-      <button onclick="handleToPathCase()">
-        /path/case</button>
-
-      <button onclick="handleToEmoji()">
-        😬Emoji</button>
-
-    </div>
-
-  </main>
-
-
-
-  
-
-  <a class="say-hello" href="https://www.linkedin.com/in/pritam-debnath-762019239">👋 Say Hello </a>
-  
-
-  <script>
-    //
-    const textareaHistory = [""];
-    let currentUndoIndex = -1;
-    let debounceTimer;
-
-    const textarea = document.getElementById('text-area')
-
-    let handleTextarea = (e) => {
-
-      let textAreaValue = e.target.value
-
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(function() {
-        // Add the current value to the history array
-        textareaHistory.push(textAreaValue);
-        currentUndoIndex = textareaHistory.length - 1;
-      }, 300)
-
-
-
-      // countering starts
-      let wordCounter = document.getElementById('word-counter')
-      let letterCounter = document.getElementById('letter-counter')
-
-      const words = textAreaValue.split(/\s+/).filter(word => word !== ''); // Split text by whitespace and remove empty strings
-
-      wordCounter.innerText = words.length
-      letterCounter.innerText = textAreaValue.length
-      // countering ends
-
-      undoRedoVisibilityCheck()
-    }
-
-
-    textarea.addEventListener('input', handleTextarea)
-
-
-
-
-
-
-
-    // button click handler starts
-
-    function handleToLowerCase() {
-      textarea.value = toLowerCase(textarea.value)
-      if (!(textareaHistory.includes(textarea.value))) { // if input value does not exist in @textareaHistory add the new string
-        textareaHistory.push(textarea.value);
-      }
-      currentUndoIndex++
-    }
-
-    function handleToUpperCase() {
-      textarea.value = toUpperCase(textarea.value)
-      if (!(textareaHistory.includes(textarea.value))) {
-        textareaHistory.push(textarea.value);
-      }
-      currentUndoIndex++
-    }
-
-    function handleToTitleCase() {
-      textarea.value = toTitleCase(textarea.value)
-      if (!(textareaHistory.includes(textarea.value))) {
-        textareaHistory.push(textarea.value);
-      }
-      currentUndoIndex++
-    }
-
-
-    function handleToPascalCase() {
-      textarea.value = toPascalCase(textarea.value)
-      if (!(textareaHistory.includes(textarea.value))) {
-        textareaHistory.push(textarea.value);
-      }
-      currentUndoIndex++
-    }
-
-    function handleToCamelCase() {
-      textarea.value = toCamelCase(textarea.value)
-      if (!(textareaHistory.includes(textarea.value))) {
-        textareaHistory.push(textarea.value);
-      }
-      currentUndoIndex++
-    }
-
-    function handleToKebabCase() {
-      textarea.value = toKebabCase(textarea.value)
-      if (!(textareaHistory.includes(textarea.value))) {
-        textareaHistory.push(textarea.value);
-      }
-      currentUndoIndex++
-    }
-
-    function handleToSnakeCase() {
-      textarea.value = toSnakeCase(textarea.value)
-      if (!(textareaHistory.includes(textarea.value))) {
-        textareaHistory.push(textarea.value);
-      }
-      currentUndoIndex++
-    }
-
-    function handleToScreamingSnakeCase() {
-      textarea.value = toScreamingSnakeCase(textarea.value)
-      if (!(textareaHistory.includes(textarea.value))) {
-        textareaHistory.push(textarea.value);
-      }
-      currentUndoIndex++
-    }
-
-
-    function handleToStudlyCaps() {
-      textarea.value = toStudlyCaps(textarea.value)
-      if (!(textareaHistory.includes(textarea.value))) {
-        textareaHistory.push(textarea.value);
-      }
-      currentUndoIndex++
-    }
-
-
-
-    function handleToDotCase() {
-      textarea.value = toDotCase(textarea.value)
-      if (!(textareaHistory.includes(textarea.value))) {
-        textareaHistory.push(textarea.value);
-      }
-      currentUndoIndex++
-    }
-
-
-    function handleToPathCase() {
-      textarea.value = toPathCase(textarea.value)
-      if (!(textareaHistory.includes(textarea.value))) {
-        textareaHistory.push(textarea.value);
-      }
-      currentUndoIndex++
-    }
-
-
-    function handleToEmoji() {
-      textarea.value = toEmoji(textarea.value)
-
-
-
-      if (!(textareaHistory.includes(textarea.value))) {
-        textareaHistory.push(textarea.value);
-      }
-      currentUndoIndex++
-    }
-
-
-    // button click handler ends
-
-
-
-
-
-    // string manipulation functions starts
-
-    const toLowerCase = (string) => {
-      return string.toLowerCase()
-    }
-
-    const toUpperCase = (string) => {
-      return string.toUpperCase()
-    }
-
-    const toTitleCase = (string) => {
-      let titleCaseString = string.toLowerCase().replace(/(?:^|\s)\w/g, (match) => match.toUpperCase());
-      return titleCaseString
-    }
-
-    const toPascalCase = (string) => {
-      let titleCase = string.toLowerCase().replace(/(?:^|\s)\w/g, (match) => match.toUpperCase());
-      return titleCase.replace(/\s/g, '');
-    }
-
-    const toCamelCase = (string) => {
-      return string.replace(/[-_\s]+(.)?/g, (_, c) => c ? c.toUpperCase() : '');
-
-    }
-
-
-    const toKebabCase = (string) => {
-      return string.replace(/\s/g, '-');
-    }
-
-
-
-    const toSnakeCase = (string) => {
-      return string.replace(/[-\s]/g, '_');
-    }
-
-    const toScreamingSnakeCase = (string) => {
-      return string.replace(/[-\s]+/g, '_').toUpperCase();
-    };
-
-
-
-    const toStudlyCaps = (string) => {
-      return string.replace(/[a-zA-Z]/g, (match, index) => {
-        return index % 2 === 0 ? match.toUpperCase() : match.toLowerCase();
-      });
-    };
-
-    const toDotCase = (string) => {
-      return string.replace(/[-_\s]+/g, '.');
-    };
-
-    const toPathCase = (string) => {
-      return string.replace(/[-_\s]+/g, '/');
-    };
-
-
-    const emojis = [
-  "😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇",
-  "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚",
-  "😋", "😛", "😜", "🤪", "😝", "🤑", "🤓", "😎", "🤩", "🥳",
-  "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "😣", "😖", "😫",
-  "😩", "🥺", "😢", "😭", "😤", "😠", "😡", "🤬", "🤯", "😳",
-  "🥴", "😱", "😨", "😰", "😥", "😓", "🤔", "🤭", "🤫", "🤥",
-  "😶", "😐", "😑", "😬", "🙄", "😯", "😦", "😧", "😮", "😲",
-  "🥱", "😴", "🤤", "😪", "😵", "🤐", "🥵", "🥶", "😷", "🤒",
-  "🤕", "🤢", "🤮", "🤧", "🙀", "😻", "😽", "😸", "😺", "😿",
-  "😹", "😾", "🐱"
-];
-
-    const toEmoji = (string) => {
-
-      let stringLength = Array.from(string).length
-
-
-      let outputEmoji = ""
-      for (let i = 0; i < stringLength; i++) {
-        outputEmoji +=
-          emojis[Math.ceil(Math.random() * emojis.length - 1)]
-
-      }
-
-      return outputEmoji
-
-    }
-
-
-
-
-    // string manipulation functions ends
-
-
-
-
-
-    // copy text starts
-    function handleCopy(textAreaId) {
-
-      let textarea = document.getElementById(textAreaId)
-
-      let copyBtn = document.getElementById('copy-btn')
-
-      textarea.select()
-      if (document.execCommand('copy')) {
-        copyBtn.innerText = "Copied"
-
-
-      };
-      textarea.blur()
-
-      setTimeout(() => { // change copy button text to the previous text
-        copyBtn.innerText = "Copy"
-      }, 3000)
-    }
-    // copy text ends
-
-
-
-    // undo and redo  starts
-    function undoTextarea() {
-
-      if (currentUndoIndex > 0) {
-        currentUndoIndex--;
-        textarea.value = textareaHistory[currentUndoIndex];
-      }
-      undoRedoVisibilityCheck()
-    }
-
-    function redoTextarea() {
-
-      if (currentUndoIndex < textareaHistory.length - 1) {
-        currentUndoIndex++;
-        textarea.value = textareaHistory[currentUndoIndex];
-      }
-      undoRedoVisibilityCheck()
-
-    }
-
-    function undoRedoVisibilityCheck() {
-      let redoBtn = document.getElementById('redo-btn')
-      if (currentUndoIndex == textareaHistory.length - 1) {
-        redoBtn.classList.add('display-none')
-        redoBtn.classList.remove('display-inline')
-      } else {
-        redoBtn.classList.remove('display-none')
-        redoBtn.classList.add('display-inline')
-      }
-
-      let undoBtn = document.getElementById('undo-btn')
-      if (currentUndoIndex <= 0) {
-        undoBtn.classList.add('display-none')
-        undoBtn.classList.remove('display-inline')
-      } else {
-        undoBtn.classList.add('display-inline')
-        undoBtn.classList.remove('display-none')
-      }
-    }
-    undoRedoVisibilityCheck()
-
-    let redoBtn = document.getElementById('redo-btn')
-    redoBtn.classList.remove('display-inline')
-    redoBtn.classList.add('display-none')
-
-
-    // undo and redo ends
-
-
-
-
-
-
-
-    //
-  </script>
-
-</body>
-
+      <div class="counter">
+        <p class="counter_p">
+          Letter Count :
+          <span id="letter-counter" class="font-weight-8">0</span>
+        </p>
+        <p class="counter_p">
+          Word Count :
+          <span id="word-counter" class="font-weight-8">0</span>
+        </p>
+      </div>
+
+      <div class="case-btn-container">
+        <button id="toLowerCase" onclick="handleToLowerCase()">
+          lower case
+        </button>
+        <button onclick="handleToUpperCase()">UPPERCASE</button>
+
+        <button onclick="handleToTitleCase()">Title Case</button>
+
+        <button onclick="handleToPascalCase()">PascalCase</button>
+
+        <button onclick="handleToCamelCase()">CamelCase</button>
+        <button onclick="handleToKebabCase()">kebab-case</button>
+
+        <button onclick="handleToSnakeCase()">snake_case</button>
+
+        <button onclick="handleToScreamingSnakeCase()">
+          SCREAMING_SNAKE_CASE
+        </button>
+
+        <button onclick="handleToStudlyCaps()">StUdLyCaPs</button>
+
+        <button onclick="handleToDotCase()">Dot.case</button>
+
+        <button onclick="handleToPathCase()">/path/case</button>
+
+        <button onclick="handleToEmoji()">😬Emoji</button>
+      </div>
+    </main>
+
+    <a
+      class="say-hello"
+      href="https://www.linkedin.com/in/pritam-debnath-762019239"
+      target="_blank"
+      >👋 Say Hello
+    </a>
+
+    <script src="script.js"></script>
+  </body>
 </html>
