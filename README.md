@@ -2,7 +2,7 @@
 
 ### 🔴 🖼️ Screenshot
 
- <a href="https://pridebnath.github.io/string-manipulator"><img src="assets/images/string-manipulator.jpg" />
+ <a href="https://pridebnath.github.io/string-manipulator"><img height="480" src="assets/images/string-manipulator.jpg" />
     </a>
 
 ### 🔴 ↗️ Link
