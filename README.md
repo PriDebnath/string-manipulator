@@ -1,7 +1,10 @@
-## Live 🔴
+## 🔴 Demo
 
-#### https://pridebnath.github.io/string-manipulator/
+### 🔴 🖼️ Screenshot
 
  <a href="https://pridebnath.github.io/string-manipulator"><img src="assets/images/string-manipulator.jpg" />
     </a>
 
+### 🔴 ↗️ Link
+
+https://pridebnath.github.io/string-manipulator/
